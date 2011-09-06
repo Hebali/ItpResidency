@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>BigScreens</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.itp.BigScreens</string>
+	<string>com.Hebali.BigScreens</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>

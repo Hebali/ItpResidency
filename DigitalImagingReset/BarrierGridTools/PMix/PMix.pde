@@ -1,6 +1,6 @@
 ///////////////////////////////////////
 // BARRIER GRID TOOLS FOR PROCESSING //
-//          IMAGE MIXER v003         //
+//          IMAGE MIXER v004         //
 //                 BY                //
 //  ERIC ROSENTHAL & PATRICK HEBRON  //
 ///////////////////////////////////////

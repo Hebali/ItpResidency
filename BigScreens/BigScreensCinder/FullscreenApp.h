@@ -1,5 +1,7 @@
-/*  Cinder BigScreens   */
-/* Patrick Hebron, 2011 */
+/*    BigScreens for Cinder    */
+/* ITP Residency Code Projects */
+/*  Patrick Hebron, 2011-2012  */
+/*    patrick.hebron@nyu.edu   */
 
 #ifndef _FULL_SCREEN_APP_
 #define _FULL_SCREEN_APP_

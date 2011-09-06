@@ -1,5 +1,7 @@
-/*  Cinder BigScreens   */
-/* Patrick Hebron, 2011 */
+/*    BigScreens for Cinder    */
+/* ITP Residency Code Projects */
+/*  Patrick Hebron, 2011-2012  */
+/*    patrick.hebron@nyu.edu   */
 
 #import "CinderBigScreenView.h"
 
@@ -25,9 +27,7 @@
 
 - (void)keyDown:(NSEvent*)theEvent {
 	[super keyDown:(NSEvent *)theEvent];
-    
-	if([theEvent keyCode] == 53 && [self isInFullScreenMode] == YES) // 53 = ESC key
-        [self exitFullScreenModeWithOptions:nil];
+    //if(theEvent keyCode] == 53) // esc key
 }
 
 @end
