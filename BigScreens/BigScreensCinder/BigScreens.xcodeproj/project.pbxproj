@@ -104,6 +104,7 @@
 				32065DF5141540B500E6386A /* FullscreenApp.mm */,
 				E0B57C12131DD62E0044F1D0 /* CinderBigScreenView.h */,
 				E0B57C13131DD62E0044F1D0 /* CinderBigScreenView.mm */,
+				565FEC3307B1797000C4E23A /* main.mm */,
 			);
 			name = BigScreen;
 			sourceTree = "<group>";
@@ -113,7 +114,6 @@
 			children = (
 				E0C5A0FF140AEE7E00453E04 /* CCGLView.h */,
 				E0C5A100140AEE7E00453E04 /* CCGLView.mm */,
-				565FEC3307B1797000C4E23A /* main.mm */,
 			);
 			name = CCGL;
 			sourceTree = "<group>";

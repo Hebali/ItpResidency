@@ -9,11 +9,11 @@
 
 - (void)setCinderApp: (CinderAppWrap*)theApp {
     appCinder = theApp;
-    appCinder->setup();
 }
 
 - (void) setup {
 	[super setup];
+    appCinder->setup();
 }
 
 - (void) draw {
