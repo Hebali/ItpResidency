@@ -3,9 +3,9 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#import "FullscreenApp.h"
+#import "CBScreenApp.h"
 
-@implementation FullscreenApp
+@implementation CBScreenApp
 
 - (id) init {
     [self setDelegate:[super init]];
@@ -34,21 +34,21 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification*)aNotification {	
-    appCinder = new CinderAppWrap();
+    appCinder = new CBScreenWrap();
 	
     vector<string> conf;
     // TODO: temp file path
-    if(FileIO::readFile("/Users/pjh/Desktop/Work/ItpResidency/BigScreens/BigScreensCinder/resources/Config.txt",&conf)) {
+    if(CBScreenFileIO::readFile("/Users/pjh/Desktop/Work/ItpResidency/BigScreens/BigScreensCinder/resources/Config.txt",&conf)) {
         // Iterate over file lines
         int clCount = conf.size();
         for(int i = 0; i < clCount; i++) {
             vector<string> confTok;
-            FileIO::tokenizeString(conf[i],'=',&confTok);
+            CBScreenFileIO::tokenizeString(conf[i],'=',&confTok);
             int cltCount = confTok.size();
             if(cltCount > 0) {
                 if(confTok[0].compare("SCREEN_DEF") == 0) {
                     vector<string> confTokPts;
-                    FileIO::tokenizeString(confTok[1],',',&confTokPts);
+                    CBScreenFileIO::tokenizeString(confTok[1],',',&confTokPts);
                     if(confTokPts.size() == 4) {
                         // Create screen
                         Screen aScreen;
@@ -67,7 +67,7 @@
                         [aScreen.sWindow setAcceptsMouseMovedEvents:YES];
                         [aScreen.sWindow makeKeyAndOrderFront:nil];
                         
-                        aScreen.sView = [[CinderBigScreenView alloc] initWithFrame:aScreen.sRect];
+                        aScreen.sView = [[CBScreenView alloc] initWithFrame:aScreen.sRect];
                         [aScreen.sView awakeFromNib];
                         
                         [aScreen.sView setCinderApp:appCinder];

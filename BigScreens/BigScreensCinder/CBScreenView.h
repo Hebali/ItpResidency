@@ -3,14 +3,14 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#ifndef _CINDER_BIGSCREEN_VIEW_
-#define _CINDER_BIGSCREEN_VIEW_
+#ifndef _CBSCREEN_VIEW_
+#define _CBSCREEN_VIEW_
 
 #include "CCGLView.h"
-#include "CinderAppWrap.h"
+#include "CBScreenWrap.h"
 
-@interface CinderBigScreenView : CCGLView {
-    CinderAppWrap* appCinder;
+@interface CBScreenView : CCGLView {
+    CBScreenWrap* appCinder;
 }
 @end
 

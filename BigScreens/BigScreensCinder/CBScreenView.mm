@@ -3,11 +3,11 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#import "CinderBigScreenView.h"
+#import "CBScreenView.h"
 
-@implementation CinderBigScreenView
+@implementation CBScreenView
 
-- (void)setCinderApp: (CinderAppWrap*)theApp {
+- (void)setCinderApp: (CBScreenWrap*)theApp {
     appCinder = theApp;
 }
 

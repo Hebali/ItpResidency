@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32065DF6141540B500E6386A /* FullscreenApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32065DF5141540B500E6386A /* FullscreenApp.mm */; };
+		32065DF6141540B500E6386A /* CBScreenApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32065DF5141540B500E6386A /* CBScreenApp.mm */; };
 		32292F981415439200E83F1B /* BigScreens-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32292F971415439200E83F1B /* BigScreens-Info.plist */; };
 		328FC681141BBA28001BA837 /* Config.txt in Resources */ = {isa = PBXBuildFile; fileRef = 328FC680141BBA28001BA837 /* Config.txt */; };
-		329F82AF1415858100A29A49 /* CinderAppWrap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 329F82AD1415858100A29A49 /* CinderAppWrap.mm */; };
+		329F82AF1415858100A29A49 /* CBScreenWrap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 329F82AD1415858100A29A49 /* CBScreenWrap.mm */; };
 		565FEC5007B179CE00C4E23A /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 565FEC3307B1797000C4E23A /* main.mm */; };
 		565FEC6407B17BE200C4E23A /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 565FEC3407B1797F00C4E23A /* MainMenu.nib */; };
-		E082CA4613551B6300F14EC8 /* CinderBigScreenView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B57C13131DD62E0044F1D0 /* CinderBigScreenView.mm */; };
+		E082CA4613551B6300F14EC8 /* CBScreenView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B57C13131DD62E0044F1D0 /* CBScreenView.mm */; };
 		E0B57BF1131D3ECA0044F1D0 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B57BF0131D3ECA0044F1D0 /* AppKit.framework */; };
 		E0C5A101140AEE7E00453E04 /* CCGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0C5A100140AEE7E00453E04 /* CCGLView.mm */; };
 		E0CBCEDD12A73F3100354DD6 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0CBCECE12A73F3100354DD6 /* Accelerate.framework */; };
@@ -32,19 +32,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		32065DF4141540B500E6386A /* FullscreenApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FullscreenApp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		32065DF5141540B500E6386A /* FullscreenApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = FullscreenApp.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		32065DF4141540B500E6386A /* CBScreenApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CBScreenApp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		32065DF5141540B500E6386A /* CBScreenApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CBScreenApp.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		32292F971415439200E83F1B /* BigScreens-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BigScreens-Info.plist"; sourceTree = "<group>"; };
 		328FC680141BBA28001BA837 /* Config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Config.txt; path = resources/Config.txt; sourceTree = "<group>"; };
-		328FC682141BBF04001BA837 /* FileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileIO.h; sourceTree = "<group>"; };
-		329F82AD1415858100A29A49 /* CinderAppWrap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CinderAppWrap.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		329F82AE1415858100A29A49 /* CinderAppWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CinderAppWrap.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		328FC682141BBF04001BA837 /* CBScreenFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBScreenFileIO.h; sourceTree = "<group>"; };
+		329F82AD1415858100A29A49 /* CBScreenWrap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CBScreenWrap.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		329F82AE1415858100A29A49 /* CBScreenWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CBScreenWrap.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		565FEC3307B1797000C4E23A /* main.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		565FEC3507B1797F00C4E23A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		E082CA4013551AD600F14EC8 /* BigScreens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigScreens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B57BF0131D3ECA0044F1D0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		E0B57C12131DD62E0044F1D0 /* CinderBigScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CinderBigScreenView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		E0B57C13131DD62E0044F1D0 /* CinderBigScreenView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CinderBigScreenView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E0B57C12131DD62E0044F1D0 /* CBScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CBScreenView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E0B57C13131DD62E0044F1D0 /* CBScreenView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CBScreenView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E0C5A0FF140AEE7E00453E04 /* CCGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGLView.h; sourceTree = "<group>"; };
 		E0C5A100140AEE7E00453E04 /* CCGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCGLView.mm; sourceTree = "<group>"; };
 		E0CBCECE12A73F3100354DD6 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -101,14 +101,14 @@
 		565FEC2D07B1793B00C4E23A /* BigScreen */ = {
 			isa = PBXGroup;
 			children = (
-				329F82AE1415858100A29A49 /* CinderAppWrap.h */,
-				329F82AD1415858100A29A49 /* CinderAppWrap.mm */,
-				32065DF4141540B500E6386A /* FullscreenApp.h */,
-				32065DF5141540B500E6386A /* FullscreenApp.mm */,
-				E0B57C12131DD62E0044F1D0 /* CinderBigScreenView.h */,
-				E0B57C13131DD62E0044F1D0 /* CinderBigScreenView.mm */,
+				329F82AE1415858100A29A49 /* CBScreenWrap.h */,
+				329F82AD1415858100A29A49 /* CBScreenWrap.mm */,
+				E0B57C12131DD62E0044F1D0 /* CBScreenView.h */,
+				E0B57C13131DD62E0044F1D0 /* CBScreenView.mm */,
+				32065DF4141540B500E6386A /* CBScreenApp.h */,
+				32065DF5141540B500E6386A /* CBScreenApp.mm */,
+				328FC682141BBF04001BA837 /* CBScreenFileIO.h */,
 				565FEC3307B1797000C4E23A /* main.mm */,
-				328FC682141BBF04001BA837 /* FileIO.h */,
 			);
 			name = BigScreen;
 			sourceTree = "<group>";
@@ -241,10 +241,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				565FEC5007B179CE00C4E23A /* main.mm in Sources */,
-				E082CA4613551B6300F14EC8 /* CinderBigScreenView.mm in Sources */,
+				E082CA4613551B6300F14EC8 /* CBScreenView.mm in Sources */,
 				E0C5A101140AEE7E00453E04 /* CCGLView.mm in Sources */,
-				32065DF6141540B500E6386A /* FullscreenApp.mm in Sources */,
-				329F82AF1415858100A29A49 /* CinderAppWrap.mm in Sources */,
+				32065DF6141540B500E6386A /* CBScreenApp.mm in Sources */,
+				329F82AF1415858100A29A49 /* CBScreenWrap.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

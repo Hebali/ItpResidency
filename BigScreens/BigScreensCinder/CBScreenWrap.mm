@@ -3,26 +3,26 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#include "CinderAppWrap.h"
+#include "CBScreenWrap.h"
 
-CinderAppWrap::CinderAppWrap() {
+CBScreenWrap::CBScreenWrap() {
     isRunning = false;
 }
 
-void CinderAppWrap::setup() {
+void CBScreenWrap::setup() {
     isRunning = true;
     if(isRunning) {     
         //cout << "app setup.\n";
     }
 }
 
-void CinderAppWrap::update() {
+void CBScreenWrap::update() {
     if(isRunning) {
         //cout << "app update.\n";
     }
 }
 
-void CinderAppWrap::draw() {
+void CBScreenWrap::draw() {
     if(isRunning) {
         //cout << "app draw.\n";
         
@@ -36,12 +36,12 @@ void CinderAppWrap::draw() {
     }
 }
 
-void CinderAppWrap::resize(ResizeEvent event) {
+void CBScreenWrap::resize(ResizeEvent event) {
     if(isRunning) {
     }
 }
 
-void CinderAppWrap::shutdown() {
+void CBScreenWrap::shutdown() {
     if(isRunning) {
     }
     isRunning = false;

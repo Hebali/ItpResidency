@@ -3,8 +3,8 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#ifndef _FILEIO_HELPERS_
-#define _FILEIO_HELPERS_
+#ifndef _CBSCREEN_FILEIO_
+#define _CBSCREEN_FILEIO_
 
 #include <iostream>
 #include <fstream>
@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <vector>
 
-class FileIO {
+class CBScreenFileIO {
 public:
-    FileIO() {}
+    CBScreenFileIO() {}
     
     static bool readFile(string FileName, vector<string>* FileOutput) {    
         string      currLine;

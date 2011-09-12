@@ -3,14 +3,14 @@
 /*  Patrick Hebron, 2011-2012  */
 /*    patrick.hebron@nyu.edu   */
 
-#ifndef _CINDER_BIGSCREEN_APP_
-#define _CINDER_BIGSCREEN_APP_
+#ifndef _CBSCREEN_WRAP_
+#define _CBSCREEN_WRAP_
 
 #include "CCGLView.h"
 
-class CinderAppWrap {
+class CBScreenWrap {
 public:
-    CinderAppWrap();
+    CBScreenWrap();
         
     void setup();
     void update();
