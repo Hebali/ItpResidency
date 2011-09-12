@@ -28,14 +28,19 @@
 	for(id screen in [NSScreen screens]) {
 		NSRect curRect = [screen frame];
 		sRect.size.width += curRect.size.width;
+        if(curRect.size.height > sRect.size.height) {
+            sRect.size.height = curRect.size.height;
+        }
 	}
-	sRect.size.height = [[NSScreen mainScreen] frame].size.height;
     return sRect;
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification*)aNotification {	
+    NSRect fullRect = [self getScreenRect];
+    NSLog(@"Fullscreen dimensions: %d %d \n",(int)fullRect.size.width,(int)fullRect.size.height);
+    
     appCinder = new CBScreenWrap();
-	
+    	
     vector<string> conf;
     // TODO: temp file path
     if(CBScreenFileIO::readFile("/Users/pjh/Desktop/Work/ItpResidency/BigScreens/BigScreensCinder/resources/Config.txt",&conf)) {
@@ -53,11 +58,16 @@
                         // Create screen
                         Screen aScreen;
                         
+                        // Get screen position and dimensions
+                        int sx = atoi(confTokPts[0].c_str());
+                        int sy = atoi(confTokPts[1].c_str());
+                        int sw = atoi(confTokPts[2].c_str());
+                        int sh = atoi(confTokPts[3].c_str());
+                        // Correct y-position
+                        sy = (int)fullRect.size.height-sh-sy;
+                        
                         // Set rect
-                        aScreen.sRect = NSMakeRect(atoi(confTokPts[0].c_str()),
-                                                   atoi(confTokPts[1].c_str()),
-                                                   atoi(confTokPts[2].c_str()),
-                                                   atoi(confTokPts[3].c_str()));  
+                        aScreen.sRect = NSMakeRect(sx,sy,sw,sh);  
                         
                         // Set window
                         aScreen.sWindow = [[NSWindow alloc] initWithContentRect:aScreen.sRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreNonretained defer:NO];
@@ -92,6 +102,7 @@
 }
 
 - (void) mouseMoved:(NSEvent *)event {
+    // TODO:
 	//NSPoint mouseLoc = [windowA convertScreenToBase:[NSEvent mouseLocation]];
     //NSPoint mouseLoc = [windowB convertScreenToBase:[NSEvent mouseLocation]];
 }
