@@ -11,21 +11,20 @@ CinderAppWrap::CinderAppWrap() {
 
 void CinderAppWrap::setup() {
     isRunning = true;
-    
     if(isRunning) {     
-        cout << "app setup.\n";
+        //cout << "app setup.\n";
     }
 }
 
 void CinderAppWrap::update() {
     if(isRunning) {
-        cout << "app update.\n";
+        //cout << "app update.\n";
     }
 }
 
 void CinderAppWrap::draw() {
     if(isRunning) {
-        cout << "app draw.\n";
+        //cout << "app draw.\n";
         
         gl::clear(Color(0.0,0.0,0.0));
         gl::setMatricesWindow(Vec2i(200,200));

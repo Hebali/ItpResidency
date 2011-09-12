@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		32065DF6141540B500E6386A /* FullscreenApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32065DF5141540B500E6386A /* FullscreenApp.mm */; };
 		32292F981415439200E83F1B /* BigScreens-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32292F971415439200E83F1B /* BigScreens-Info.plist */; };
+		328FC681141BBA28001BA837 /* Config.txt in Resources */ = {isa = PBXBuildFile; fileRef = 328FC680141BBA28001BA837 /* Config.txt */; };
 		329F82AF1415858100A29A49 /* CinderAppWrap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 329F82AD1415858100A29A49 /* CinderAppWrap.mm */; };
 		565FEC5007B179CE00C4E23A /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 565FEC3307B1797000C4E23A /* main.mm */; };
 		565FEC6407B17BE200C4E23A /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 565FEC3407B1797F00C4E23A /* MainMenu.nib */; };
@@ -34,6 +35,8 @@
 		32065DF4141540B500E6386A /* FullscreenApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FullscreenApp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		32065DF5141540B500E6386A /* FullscreenApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = FullscreenApp.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		32292F971415439200E83F1B /* BigScreens-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BigScreens-Info.plist"; sourceTree = "<group>"; };
+		328FC680141BBA28001BA837 /* Config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Config.txt; path = resources/Config.txt; sourceTree = "<group>"; };
+		328FC682141BBF04001BA837 /* FileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileIO.h; sourceTree = "<group>"; };
 		329F82AD1415858100A29A49 /* CinderAppWrap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CinderAppWrap.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		329F82AE1415858100A29A49 /* CinderAppWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CinderAppWrap.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		565FEC3307B1797000C4E23A /* main.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 				E0B57C12131DD62E0044F1D0 /* CinderBigScreenView.h */,
 				E0B57C13131DD62E0044F1D0 /* CinderBigScreenView.mm */,
 				565FEC3307B1797000C4E23A /* main.mm */,
+				328FC682141BBF04001BA837 /* FileIO.h */,
 			);
 			name = BigScreen;
 			sourceTree = "<group>";
@@ -121,6 +125,7 @@
 		565FEC2F07B1794500C4E23A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				328FC680141BBA28001BA837 /* Config.txt */,
 				32292F971415439200E83F1B /* BigScreens-Info.plist */,
 				565FEC3407B1797F00C4E23A /* MainMenu.nib */,
 			);
@@ -224,6 +229,7 @@
 			files = (
 				565FEC6407B17BE200C4E23A /* MainMenu.nib in Resources */,
 				32292F981415439200E83F1B /* BigScreens-Info.plist in Resources */,
+				328FC681141BBA28001BA837 /* Config.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

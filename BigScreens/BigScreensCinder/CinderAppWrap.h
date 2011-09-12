@@ -19,7 +19,7 @@ public:
     
     void resize(ResizeEvent event);
         
-    bool isRunning;    
+    bool isRunning;   
 };
 
 #endif

@@ -9,8 +9,6 @@
 
 - (id) init {
     [self setDelegate:[super init]];
-	windowA	= NULL;
-    windowB	= NULL;
 	return self;
 }
 
@@ -19,8 +17,10 @@
     appCinder->shutdown();
     delete appCinder;
     
-	if(windowA)	{[windowA release];}
-    if(windowB)	{[windowB release];}
+    int sCount = screens.size();
+    for(int i = 0; i < sCount; i++) {
+        [screens[i].sWindow release];
+    }
 }
 
 - (NSRect) getScreenRect {
@@ -34,54 +34,61 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification*)aNotification {	
-    // Set cinderRect dimensions (either from screens or manually)
-    //cinderRect = [self getScreenRect];
-    cinderRectA = NSMakeRect(0,0,200,200);  
-    cinderRectB = NSMakeRect(250,0,200,200);  
-    
-	// create and set window
-	windowA = [[NSWindow alloc] initWithContentRect:cinderRectA styleMask:NSBorderlessWindowMask backing:NSBackingStoreNonretained defer:NO];
-	[windowA setOpaque:YES];
-	[windowA setBackgroundColor:[NSColor clearColor]]; 
-	[windowA setIgnoresMouseEvents:FALSE];
-	[windowA setAcceptsMouseMovedEvents:YES];
-	[windowA makeKeyAndOrderFront:nil];
-    
-    windowB = [[NSWindow alloc] initWithContentRect:cinderRectB styleMask:NSBorderlessWindowMask backing:NSBackingStoreNonretained defer:NO];
-	[windowB setOpaque:YES];
-	[windowB setBackgroundColor:[NSColor clearColor]]; 
-	[windowB setIgnoresMouseEvents:FALSE];
-	[windowB setAcceptsMouseMovedEvents:YES];
-	[windowB makeKeyAndOrderFront:nil];
-    
-    cinderViewA = [[CinderBigScreenView alloc] initWithFrame:cinderRectA];
-    [cinderViewA awakeFromNib];
-    
-    cinderViewB = [[CinderBigScreenView alloc] initWithFrame:cinderRectB];
-    [cinderViewB awakeFromNib];
-    
     appCinder = new CinderAppWrap();
-
-    [cinderViewA setCinderApp:appCinder];
-    [cinderViewB setCinderApp:appCinder];
-    
-	[windowA setContentView:cinderViewA];
-	[windowA setInitialFirstResponder:cinderViewA];
-    
-    [windowB setContentView:cinderViewB];
-	[windowB setInitialFirstResponder:cinderViewB];
 	
-	[windowA setFrame:cinderRectA display:YES];   // Set window dimensions
-    [windowB setFrame:cinderRectB display:YES];   // Set window dimensions
-    
-	[windowA setLevel:NSScreenSaverWindowLevel]; // Force application to front
-    //[windowA setLevel:NSNormalWindowLevel];    // Don't force application to front
-    
-    [windowB setLevel:NSScreenSaverWindowLevel]; // Force application to front
-    //[windowB setLevel:NSNormalWindowLevel];    // Don't force application to front
-    
-	//[NSCursor hide];                           // Hide cursor
-    //[NSCursor unhide];                         // Unhide cursor
+    vector<string> conf;
+    // TODO: temp file path
+    if(FileIO::readFile("/Users/pjh/Desktop/Work/ItpResidency/BigScreens/BigScreensCinder/resources/Config.txt",&conf)) {
+        // Iterate over file lines
+        int clCount = conf.size();
+        for(int i = 0; i < clCount; i++) {
+            vector<string> confTok;
+            FileIO::tokenizeString(conf[i],'=',&confTok);
+            int cltCount = confTok.size();
+            if(cltCount > 0) {
+                if(confTok[0].compare("SCREEN_DEF") == 0) {
+                    vector<string> confTokPts;
+                    FileIO::tokenizeString(confTok[1],',',&confTokPts);
+                    if(confTokPts.size() == 4) {
+                        // Create screen
+                        Screen aScreen;
+                        
+                        // Set rect
+                        aScreen.sRect = NSMakeRect(atoi(confTokPts[0].c_str()),
+                                                   atoi(confTokPts[1].c_str()),
+                                                   atoi(confTokPts[2].c_str()),
+                                                   atoi(confTokPts[3].c_str()));  
+                        
+                        // Set window
+                        aScreen.sWindow = [[NSWindow alloc] initWithContentRect:aScreen.sRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreNonretained defer:NO];
+                        [aScreen.sWindow setOpaque:YES];
+                        [aScreen.sWindow setBackgroundColor:[NSColor clearColor]]; 
+                        [aScreen.sWindow setIgnoresMouseEvents:FALSE];
+                        [aScreen.sWindow setAcceptsMouseMovedEvents:YES];
+                        [aScreen.sWindow makeKeyAndOrderFront:nil];
+                        
+                        aScreen.sView = [[CinderBigScreenView alloc] initWithFrame:aScreen.sRect];
+                        [aScreen.sView awakeFromNib];
+                        
+                        [aScreen.sView setCinderApp:appCinder];
+                        
+                        [aScreen.sWindow setContentView:aScreen.sView];
+                        [aScreen.sWindow setInitialFirstResponder:aScreen.sView];
+                        
+                        [aScreen.sWindow setFrame:aScreen.sRect display:YES];   // Set window dimensions
+                        
+                        [aScreen.sWindow setLevel:NSScreenSaverWindowLevel]; // Force application to front
+                        //[aScreen.sWindow setLevel:NSNormalWindowLevel];    // Don't force application to front
+                        
+                        //[NSCursor hide];                           // Hide cursor
+                        //[NSCursor unhide];                         // Unhide cursor
+                        
+                        screens.push_back(aScreen);
+                    }
+                }
+            }
+        }
+    }    
 }
 
 - (void) mouseMoved:(NSEvent *)event {

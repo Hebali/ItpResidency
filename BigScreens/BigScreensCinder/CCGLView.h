@@ -54,6 +54,7 @@
 #include "cinder/Area.h"
 #include "cinder/Surface.h"
 #include "cinder/ip/Flip.h"
+#include "cinder/CinderResources.h"
 
 #import <Cocoa/Cocoa.h>
 #include <stdio.h>
