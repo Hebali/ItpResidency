@@ -10,7 +10,8 @@
 #include "CBScreenWrap.h"
 
 @interface CBScreenView : CCGLView {
-    CBScreenWrap* appCinder;
+    CBScreenWrap*   appCinder;
+    bool            isPrimary;
 }
 @end
 

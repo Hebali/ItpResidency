@@ -20,6 +20,9 @@ public:
     void resize(ResizeEvent event);
         
     bool isRunning;   
+    
+    CameraPersp			mCam;
+	Matrix44f			mCubeRotation;
 };
 
 #endif

@@ -15,12 +15,13 @@
 
 -(void) cleanUp {
     appCinder->shutdown();
-    delete appCinder;
     
     int sCount = screens.size();
     for(int i = 0; i < sCount; i++) {
         [screens[i].sWindow release];
     }
+    
+    delete appCinder;
 }
 
 - (NSRect) getScreenRect {
@@ -81,6 +82,7 @@
                         [aScreen.sView awakeFromNib];
                         
                         [aScreen.sView setCinderApp:appCinder];
+                        [aScreen.sView setPrimary:(screens.empty())];
                         
                         [aScreen.sWindow setContentView:aScreen.sView];
                         [aScreen.sWindow setInitialFirstResponder:aScreen.sView];

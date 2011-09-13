@@ -93,6 +93,7 @@ using namespace std;
  *  Cocoa'd general utils extracted from Cinder
  */
 
+- (int) getElapsedFrames;
 - (double) getElapsedSeconds;
 - (int) getWindowWidth;
 - (int) getWindowHeight;

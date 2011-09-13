@@ -10,14 +10,24 @@
 - (void)setCinderApp: (CBScreenWrap*)theApp {
     appCinder = theApp;
 }
+- (void)setPrimary: (bool)IsPrimary {
+    isPrimary = IsPrimary;
+}
 
 - (void) setup {
 	[super setup];
-    appCinder->setup();
+    if(isPrimary) {
+        appCinder->setup();
+    }
+    [self reshape];
 }
 
 - (void) draw {
+    if(isPrimary) {
+        appCinder->update();
+    }
     appCinder->draw();
+    NSLog(@"framerate: %f \n",[self getElapsedFrames]/[self getElapsedSeconds]);
 }
 
 - (void)reshape {

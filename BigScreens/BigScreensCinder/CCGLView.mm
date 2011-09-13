@@ -62,7 +62,7 @@
 		NSLog(@"No OpenGL pixel format");
 	else {
 		// init stuff here
-        frameRate = 30;
+        frameRate = 60;
 	}
 	
 	return self = [super initWithFrame:frame pixelFormat: [fmt autorelease]];
@@ -85,9 +85,9 @@
     startTime = ::CFAbsoluteTimeGetCurrent();
 }
 
-- (void) timer: (NSTimer *) timer
+- (void) timer: (NSTimer *) timer 
 {
-	frameCount ++;
+	frameCount++;
 	[self setNeedsDisplay:YES];
 }
 
@@ -177,6 +177,11 @@
 /**
  *  Cocoa'd general utils extracted from Cinder 
  */
+
+-(int) getElapsedFrames 
+{
+    return frameCount;
+}
 
 - (double) getElapsedSeconds
 {
