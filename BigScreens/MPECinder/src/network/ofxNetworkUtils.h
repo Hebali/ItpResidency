@@ -35,10 +35,23 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
 #define ofxNetworkCheckError() ofxNetworkCheckErrno(__FILE__,ofToString(__LINE__))
+
+
+//--------------------------------------------------
+inline string ofToString(int value){
+	stringstream sstr;
+	sstr << value;
+	return sstr.str();
+}
+
+inline void ofLog(int logLevel, string message){
+    printf("%s\n",message.c_str());
+}
 
 inline int ofxNetworkCheckErrno(const string & file, const string & line){
 	#ifdef TARGET_WIN32
@@ -46,6 +59,7 @@ inline int ofxNetworkCheckErrno(const string & file, const string & line){
 	#else
 		int err = errno;
 	#endif
+    /*
 	switch(err){
 	case EBADF:
 		ofLog(OF_LOG_ERROR,"ofxNetwork:"+file+": " +line+" EBADF: invalid socket");
@@ -129,6 +143,7 @@ inline int ofxNetworkCheckErrno(const string & file, const string & line){
 		ofLog(OF_LOG_ERROR,"ofxNetwork:"+file+": " +line+" unknown error: " + ofToString(errno) + " see errno.h for description of the error");
 		break;
 	}
+    */
 
 	return err;
 }

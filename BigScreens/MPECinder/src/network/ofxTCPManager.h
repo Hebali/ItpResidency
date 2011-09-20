@@ -47,6 +47,7 @@ SetTimeoutReceive()
 #include <string.h>
 #include <wchar.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #ifndef TARGET_WIN32
 

@@ -64,7 +64,6 @@ UDP Multicast (receiving):
 x) Close()
 
 --------------------------------------------------------------------------------*/
-#include "ofConstants.h"
 #include <string.h>
 #include <wchar.h>
 #include <stdio.h>

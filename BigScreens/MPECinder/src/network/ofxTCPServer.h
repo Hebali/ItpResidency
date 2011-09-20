@@ -4,6 +4,7 @@
 #include "ofxThread.h"
 #include "ofxTCPManager.h"
 #include <map>
+#include <string>
 
 #define TCP_MAX_CLIENTS  32
 

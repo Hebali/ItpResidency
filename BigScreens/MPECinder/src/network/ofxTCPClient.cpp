@@ -1,5 +1,4 @@
 #include "ofxTCPClient.h"
-#include "ofAppRunner.h"
 
 
 //--------------------------
