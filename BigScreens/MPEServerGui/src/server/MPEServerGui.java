@@ -79,7 +79,7 @@ public class MPEServerGui extends PApplet {
           ws.run();
     }
     
-    public class MPEServer {
+    public class MPEServer extends Thread {
         private ArrayList<Connection> connections = new ArrayList<Connection>();
         private int port;
         private boolean running = false;
