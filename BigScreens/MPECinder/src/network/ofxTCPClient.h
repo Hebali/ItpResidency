@@ -1,8 +1,10 @@
 #ifndef _OFX_TCP_CLIENT_
 #define _OFX_TCP_CLIENT_
 
-#include "ofConstants.h"
 #include "ofxTCPManager.h"
+
+#include <vector>
+#include <string>
 
 #define TCP_MAX_MSG_SIZE 512
 #define STR_END_MSG "[/TCP]"
@@ -13,6 +15,8 @@
 #else
 	#define TCP_CONNRESET WSAECONNRESET
 #endif
+
+using namespace std;
 
 class ofxTCPClient{
 

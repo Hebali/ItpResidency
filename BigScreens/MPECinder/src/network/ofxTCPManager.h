@@ -44,7 +44,6 @@ SetTimeoutAccept()
 SetTimeoutReceive()
 
 ****************************************************************/
-#include "ofConstants.h"
 #include <string.h>
 #include <wchar.h>
 #include <stdio.h>

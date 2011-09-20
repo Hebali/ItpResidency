@@ -9,7 +9,6 @@
 #define OFXNETWORKUTILS_H_
 
 #include <cerrno>
-#include <ofMain.h>
 #if defined (TARGET_WIN32) && !(_MSC_VER) 
     #include <winsock.h>
     #include <winsock2.h>
@@ -33,6 +32,11 @@
     #define ENOPROTOOPT     WSAENOPROTOOPT
     #define EMSGSIZE        WSAEMSGSIZE
 #endif
+
+#include <vector>
+#include <string>
+
+using namespace std;
 
 #define ofxNetworkCheckError() ofxNetworkCheckErrno(__FILE__,ofToString(__LINE__))
 

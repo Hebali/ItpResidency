@@ -3,6 +3,11 @@
 #include "ofxNetwork.h"
 #include "ofxThread.h"
 
+#include <vector>
+#include <string>
+
+using namespace std;
+
 //--------------------------------------------------------------
 class mpeClientListener {
     public:
