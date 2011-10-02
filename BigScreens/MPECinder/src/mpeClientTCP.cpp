@@ -120,7 +120,7 @@ void mpeClientTCP::setMasterDimensions(int _mWidth, int _mHeight) {
 //--------------------------------------------------------------
 void mpeClientTCP::setFieldOfView(float val) {
     fieldOfView = val;
-    cameraZ = (ofGetHeight() / 2.f) / tanf(M_PI * fieldOfView/360.f);
+    cameraZ = (getWindowHeight() / 2.f) / tanf(M_PI * fieldOfView/360.f);
 }
 
 //--------------------------------------------------------------
@@ -176,13 +176,13 @@ void mpeClientTCP::placeScreen3D() {
 // Restores the viewing area for this screen when rendering in 3D.
 //--------------------------------------------------------------
 void mpeClientTCP::restoreCamera() {
-    gluLookAt(ofGetWidth()/2.f, ofGetHeight()/2.f, cameraZ,
-              ofGetWidth()/2.f, ofGetHeight()/2.f, 0, 
+    gluLookAt(getWindowWidth()/2.f, getWindowHeight()/2.f, cameraZ,
+              getWindowWidth()/2.f, getWindowHeight()/2.f, 0, 
               0, 1, 0);
     
     float mod = .1f;
-    glFrustum(-(ofGetWidth()/2.f)*mod, (ofGetWidth()/2.f)*mod,
-              -(ofGetHeight()/2.f)*mod, (ofGetHeight()/2.f)*mod,
+    glFrustum(-(getWindowWidth()/2.f)*mod, (getWindowWidth()/2.f)*mod,
+              -(getWindowHeight()/2.f)*mod, (getWindowHeight()/2.f)*mod,
               cameraZ*mod, 10000);
 }
 
@@ -296,9 +296,9 @@ void mpeClientTCP::read(string _serverInput) {
             frameCount++;
             
             // calculate new framerate
-            float ms = ofGetElapsedTimeMillis() - lastMs;
+            float ms = getElapsedSeconds()*1000.0 - lastMs;
             fps = 1000.f / ms;
-            lastMs = ofGetElapsedTimeMillis();
+            lastMs = getElapsedSeconds()*1000.0;
             
             if (!autoMode) {
                 parent->frameEvent();
