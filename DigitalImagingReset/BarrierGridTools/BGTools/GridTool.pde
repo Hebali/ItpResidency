@@ -5,8 +5,8 @@ public class GridTool {
   boolean         isVertical        = false;
   boolean         toolsAreVisible   = false;
 
-  public float    MASTER_WIDTH      = 1920.0;
-  public float    MASTER_HEIGHT     = 1080.0;
+  public float    MASTER_WIDTH      = 1024.0;
+  public float    MASTER_HEIGHT     = 768.0;
   
   public float    LCD_WIDTH         = 14.0;
   public float    LCD_HEIGHT        =  8.0;
@@ -22,7 +22,7 @@ public class GridTool {
   public void setup() {
     gridTools = cP5.addGroup("gridTools",120,0);
     gridTools.hideBar();
-    cP5.addButton("rotate",0,0,0,75,15).setGroup(gridTools);
+    cP5.addButton("rotate",0,0,0,90,14).setGroup(gridTools);
     
     masterW_box = cP5.addNumberbox("MASTER_WIDTH",MASTER_WIDTH,100,0,90,14);
     masterW_box.setGroup(gridTools);
@@ -108,7 +108,7 @@ public class GridTool {
     popMatrix();
     // Draw tool background 
     if(toolsAreVisible) {
-      fill(128);
+      fill(25,25,25,200);
       rect(0,0,width,50);
     }
   }
@@ -117,6 +117,14 @@ public class GridTool {
     // Handle rotation
     if(theEvent.name().equals("rotate")) {
       isVertical   = !isVertical;
+      float curMW  = masterW_box.value();
+      float curMH  = masterH_box.value();
+      masterW_box.setValue(curMH);
+      masterH_box.setValue(curMW);
+      float curLW  = lcdW_box.value();
+      float curLH  = lcdH_box.value();
+      lcdW_box.setValue(curLH);
+      lcdH_box.setValue(curLW);
     }
     // Lock ranges
     if(masterW_box.value() < 1)          {masterW_box.setValue(1.0);}

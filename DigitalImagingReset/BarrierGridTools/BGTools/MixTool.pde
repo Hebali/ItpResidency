@@ -1,11 +1,11 @@
-class MixTool {
-  
+public class MixTool {
   ImgWrap[] imgs;
   PImage    outputImg;
-  boolean   isLoaded;
-  boolean   genMode;
+  
+  boolean   isLoaded = false;
+  boolean   genMode  = false;
+  
   float     oversizeScale;
-  int       imgCount;
   int       masterWidth;
   int       masterHeight;
 
@@ -14,7 +14,8 @@ class MixTool {
   ControlGroup mixTools;
   Textfield widthField,heightField;
   Slider scaleSlider;
-  MixTool() {
+  
+  public MixTool() {
     isLoaded = false;
     genMode  = false;
     font     = createFont("Georgia", 12);
@@ -39,9 +40,10 @@ class MixTool {
     scaleSlider = cP5.addSlider("resize",0.0,2.0,1.0,370,0,100,10);
     scaleSlider.setGroup(mixTools);
   }
-  void setup() {
-  }
-  void draw() {
+  
+  public void setup() {}
+  
+  public void draw() {
     if(isLoaded) {
       if(genMode) {
         pushMatrix();
@@ -64,11 +66,12 @@ class MixTool {
       }
     }
   }
-  boolean handleMouse() {
+  
+  public boolean handleMouse() {
     return false;
   }
   
-  boolean handleEvent(ControlEvent theEvent) {
+  public boolean handleEvent(ControlEvent theEvent) {
     //println(theEvent.name());
     if(theEvent.name().equals("load")) {
       loadImageFiles();
@@ -93,12 +96,12 @@ class MixTool {
     return false;
   }
   
-  void toggleUiVisibility(boolean Show) {
+  public void toggleUiVisibility(boolean Show) {
     if(Show)  {mixTools.show();}
     else      {mixTools.hide();}
   }  
   
-  boolean loadImageFiles() {
+  public boolean loadImageFiles() {
     String loadPath = selectFolder();
     if (loadPath == null) {
       println("No folder was selected.");
@@ -115,14 +118,14 @@ class MixTool {
       // Get loaded files
       String[] filenames = folder.list(imgFilter);
       // Prepare images
-      imgCount = filenames.length;
+      int imgCount = filenames.length;
       imgs = new ImgWrap[imgCount];
       // Load images
       for (int i = 0; i < imgCount; i++) {
         imgs[i] = new ImgWrap(loadImage(loadPath+"/"+filenames[i]));
       }
       // Check if images have same dimensions
-      if (imgCount > 1) {
+      if(imgCount > 1) {
         masterWidth  = imgs[0].img.width;
         masterHeight = imgs[0].img.height;
         widthField.setText(Integer.toString(masterWidth));
@@ -138,8 +141,9 @@ class MixTool {
     return isLoaded;
   }
   
-  void generateImage() {
+  public void generateImage() {
     // Load pixels
+    int imgCount = imgs.length;
     for (int i = 0; i < imgCount; i++) {
       imgs[i].img.loadPixels();
     }
@@ -164,7 +168,7 @@ class MixTool {
     outputImg.updatePixels();
   }
   
-  boolean inBounds(int X, int Y) {
+  public boolean inBounds(int X, int Y) {
     if(X >= 0 && X < masterWidth && Y >= 0 && Y < masterHeight)
       return true;
     return false;
