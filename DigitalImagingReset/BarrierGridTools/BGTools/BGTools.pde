@@ -67,12 +67,14 @@ void draw() {
      abs(mouseY-prevMousePos.y) > 2) {
        lastMoveTime = currTime;
        cP5.show();
-       grid.toolsAreVisible = true;
+       mixer.toolsAreVisible = true;
+       grid.toolsAreVisible  = true;
   }
   prevMousePos = new PVector(mouseX,mouseY);
   if(currTime-lastMoveTime > TIME_OUT) {
     cP5.hide();
-    grid.toolsAreVisible = false;
+    mixer.toolsAreVisible = false;
+    grid.toolsAreVisible  = false;
   }
 }
 
