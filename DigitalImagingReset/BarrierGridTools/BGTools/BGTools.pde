@@ -4,8 +4,8 @@
 //  ERIC ROSENTHAL & PATRICK HEBRON  //
 ///////////////////////////////////////
 
-// NOTE: The Barrier Grid Tools require the cP5 Processing Library
-// http://www.sojamo.de/libraries/cP5/
+// NOTE: The Barrier Grid Tools require the ControlP5 Processing Library
+// http://www.sojamo.de/libraries/controlP5/
 
 import controlP5.*;
 import java.awt.*;
@@ -57,12 +57,9 @@ void setup() {
 
 void draw() {
   background(0);
-  if(tMode == MODE_MIX) {
-    mixer.draw();
-  }
-  else if(tMode == MODE_GEN) {
-    grid.draw();
-  }
+  
+  if(tMode == MODE_MIX)       {mixer.draw();}
+  else if(tMode == MODE_GEN)  {grid.draw();}
   
   // Handle UI visibility
   int currTime = millis();
@@ -70,20 +67,18 @@ void draw() {
      abs(mouseY-prevMousePos.y) > 2) {
        lastMoveTime = currTime;
        cP5.show();
+       grid.toolsAreVisible = true;
   }
   prevMousePos = new PVector(mouseX,mouseY);
   if(currTime-lastMoveTime > TIME_OUT) {
     cP5.hide();
+    grid.toolsAreVisible = false;
   }
 }
 
 void mousePressed() {
-  if(tMode == MODE_MIX) {
-    mixer.handleMouse();
-  }
-  else if(tMode == MODE_GEN) {
-    grid.handleMouse();
-  }
+  if(tMode == MODE_MIX)       {mixer.handleMouse();}
+  else if(tMode == MODE_GEN)  {grid.handleMouse();}
 }
 
 void controlEvent(ControlEvent theEvent) {
@@ -92,19 +87,20 @@ void controlEvent(ControlEvent theEvent) {
       tMode = (int)theEvent.group().value();
       if(tMode == MODE_MIX) {
         mixer.toggleUiVisibility(true);
+        grid.toggleUiVisibility(false);
       }
       else if(tMode == MODE_GEN) {
+        grid.toggleUiVisibility(true);
         mixer.toggleUiVisibility(false);
       }
     }
   }
   else {
-    if(tMode == MODE_MIX) {
-      mixer.handleEvent(theEvent);
-    }
-    else if(tMode == MODE_GEN) {
-    }
+    if(tMode == MODE_MIX)       {mixer.handleEvent(theEvent);}
+    else if(tMode == MODE_GEN)  {grid.handleEvent(theEvent);}
   }
+  lastMoveTime = millis();
+  cP5.show();
 }
 
 

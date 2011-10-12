@@ -94,12 +94,8 @@ class MixTool {
   }
   
   void toggleUiVisibility(boolean Show) {
-    if(Show) {
-      mixTools.show();
-    }
-    else {
-      mixTools.hide();
-    }
+    if(Show)  {mixTools.show();}
+    else      {mixTools.hide();}
   }  
   
   boolean loadImageFiles() {
