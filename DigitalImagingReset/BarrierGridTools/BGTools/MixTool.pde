@@ -11,12 +11,14 @@ public class MixTool {
   
   int            SOURCE_WIDTH    = 500;
   int            SOURCE_HEIGHT   = 500;
-
-  PFont     font;
   
-  
+  int            MOVE_BY         = 1;
 
-  Numberbox masterW_box,masterH_box,scale_box;
+  PFont          font;
+ 
+  Numberbox      masterW_box,masterH_box,scale_box,moveBy_box;
+  
+  LayerMan       layerMan;
   
   public MixTool() {
     font     = createFont("Georgia", 12);
@@ -27,17 +29,26 @@ public class MixTool {
     cP5.addButton("load",0,80,0,75,15).setGroup(mixTools);
     cP5.addButton("export",0,160,0,75,15).setGroup(mixTools);
     
+    cP5.addButton("up",   0,700, 0,30,20).setGroup(mixTools);
+    cP5.addButton("down", 0,700,22,30,20).setGroup(mixTools);
+    cP5.addButton("left", 0,668,10,30,20).setGroup(mixTools);
+    cP5.addButton("right",0,732,10,30,20).setGroup(mixTools);
+    
     masterW_box = cP5.addNumberbox("SOURCE_WIDTH",SOURCE_WIDTH,250,0,90,14);
     masterW_box.setGroup(mixTools);
     masterW_box.setMultiplier(1);
     
-    masterH_box = cP5.addNumberbox("SOURCE_HEIGHT",SOURCE_HEIGHT,310,0,90,14);
+    masterH_box = cP5.addNumberbox("SOURCE_HEIGHT",SOURCE_HEIGHT,350,0,90,14);
     masterH_box.setGroup(mixTools);
     masterH_box.setMultiplier(1);
     
-    scale_box = cP5.addNumberbox("DISPLAY_SCALE",DISPLAY_SCALE,370,0,90,14);
+    scale_box = cP5.addNumberbox("DISPLAY_SCALE",DISPLAY_SCALE,450,0,90,14);
     scale_box.setGroup(mixTools);
     scale_box.setMultiplier(0.01);
+    
+    moveBy_box =  cP5.addNumberbox("MOVE_BY",MOVE_BY,550,0,90,14);
+    moveBy_box.setGroup(mixTools);
+    moveBy_box.setMultiplier(1);
     
     toggleUiVisibility(toolsAreVisible);
   }
@@ -55,13 +66,14 @@ public class MixTool {
         popMatrix();
       }
       else {
-        // Draw using layer-ordering indices...
-        int imgCount = imgs.length;
-        for(int i = 0; i < imgCount; i++) {
+        // Draw visible layers
+        int[] visibleIndices = layerMan.getVisibleIndices();
+        int viCount = visibleIndices.length;
+        for(int i = 0; i < viCount; i++) {
           pushMatrix();
           if(scale_box.value() != 1.0)
             scale(scale_box.value()); 
-          imgs[i].draw(128);
+          imgs[visibleIndices[i]].draw(128);
           popMatrix();
         }
       }
@@ -69,7 +81,7 @@ public class MixTool {
     // Draw tool background 
     if(toolsAreVisible) {
       fill(25,25,25,200);
-      rect(0,0,width,50);
+      rect(0,0,width,42);
     }
   }
   
@@ -96,6 +108,44 @@ public class MixTool {
     else if(theEvent.name().equals("export")) {
       exportFile();
     }
+    else if(theEvent.name().equals("up")){
+      int[] selIndices = layerMan.getSelectedIndices();
+      int siCount = selIndices.length;
+      for(int i = 0; i < siCount; i++) {
+        imgs[selIndices[i]].ty -= moveBy_box.value();
+      }
+      genMode = false;
+    }
+    else if(theEvent.name().equals("down")){
+      int[] selIndices = layerMan.getSelectedIndices();
+      int siCount = selIndices.length;
+      for(int i = 0; i < siCount; i++) {
+        imgs[selIndices[i]].ty += moveBy_box.value();
+      }
+      genMode = false;
+    }
+    else if(theEvent.name().equals("left")){
+      int[] selIndices = layerMan.getSelectedIndices();
+      int siCount = selIndices.length;
+      for(int i = 0; i < siCount; i++) {
+        imgs[selIndices[i]].tx -= moveBy_box.value();
+      }
+      genMode = false;
+    }
+    else if(theEvent.name().equals("right")){
+      int[] selIndices = layerMan.getSelectedIndices();
+      int siCount = selIndices.length;
+      for(int i = 0; i < siCount; i++) {
+        imgs[selIndices[i]].tx += moveBy_box.value();
+      }
+      genMode = false;
+    }
+    else {
+      // Pass to layerMan
+      if(isLoaded) {
+        layerMan.handleLayer(theEvent.name());
+      }
+    }
     // Lock ranges
     if(masterW_box.value() < 1)          {masterW_box.setValue(1.0);}
     else if(masterW_box.value() > 10000) {masterW_box.setValue(10000.0);}
@@ -103,6 +153,8 @@ public class MixTool {
     else if(masterH_box.value() > 10000) {masterH_box.setValue(10000.0);}
     if(scale_box.value() < 0.001)        {scale_box.setValue(0.001);}
     else if(scale_box.value() > 2.5)     {scale_box.setValue(2.5);}
+    if(moveBy_box.value() < 1)           {moveBy_box.setValue(1);}
+    else if(moveBy_box.value() > 1000)   {moveBy_box.setValue(1000);}
     return false;
   }
   
@@ -147,6 +199,11 @@ public class MixTool {
         }
       }      
     }
+    
+    if(isLoaded) {
+      layerMan = new LayerMan(imgs.length, width-300, 100, mixTools);
+    }
+    
     return isLoaded;
   }
   
@@ -200,7 +257,7 @@ public class MixTool {
   }
   
   public boolean inBounds(int X, int Y) {
-    if(X >= 0 && X < SOURCE_WIDTH && Y >= 0 && Y < SOURCE_HEIGHT) {return true;}
+    if(X >= 0 && X < (int)masterW_box.value() && Y >= 0 && Y < (int)masterH_box.value()) {return true;}
     return false;
   }
 }

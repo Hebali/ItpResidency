@@ -78,7 +78,8 @@ public class GridTool {
   public void generateImg() {    
     float wRatio = (float)masterW_box.value()/lcdW_box.value();
     float hRatio = (float)masterH_box.value()/lcdH_box.value();
-    float pixelsPerInch = ((wRatio>hRatio)?(wRatio):(hRatio));
+    //float pixelsPerInch = ((wRatio>hRatio)?(wRatio):(hRatio)); ??
+    float pixelsPerInch = wRatio;
     float lineWidth     = pixelsPerInch/lpi_box.value();
     
     int blackLines = (int)(lineWidth*(black_box.value()/100.0));
@@ -96,20 +97,19 @@ public class GridTool {
   }
   
   public void draw() {
-    // Clear background
-    background(255);
     // Draw grid
     pushMatrix();
     if(isVertical) {
       translate(masterH_box.value(),0);
       rotate(PI/2);
     }
+    fill(255);
     image(outputImg,0,0);
     popMatrix();
     // Draw tool background 
     if(toolsAreVisible) {
       fill(25,25,25,200);
-      rect(0,0,width,50);
+      rect(0,0,width,42);
     }
   }
   

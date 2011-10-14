@@ -29,7 +29,7 @@ GridTool grid;
 
 void setup() {
   size(1024,768);
-  
+    
   // Initialize cP5 UI
   cP5 = new ControlP5(this);
   // Add dropdown list of tool modes
