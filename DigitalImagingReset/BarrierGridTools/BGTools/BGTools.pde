@@ -7,6 +7,27 @@
 // NOTE: The Barrier Grid Tools require the ControlP5 Processing Library
 // http://www.sojamo.de/libraries/controlP5/
 
+// NOTES:
+/*
+Open dialog selects folders but files are ghosted... fix highlighting.
+
+Add a calibration layer (which can be derived from any of the image layers, selectable by user) that adds a white border around that image...
+This allows user to calibrate the alignment with pure white rather than trying to align using image content. When the image is calibrated the border will be pure white for one eye and black for the other.
+
+Subsample depth 1 to 16 levels...
+subpixel definition... clone orig layer, copy each column # of subsample times, then squish back down...
+Also need to define the export resolution as this is instrumental to figuring out the degree of squishing...
+
+Each column (which is a pair of white and black) should represent each src image. So if a col is 10px wide and we have 10 src images, each src would have 1 pixel along the horizontal of a col
+
+For the grid generator... rather than composing with pixels, use lines with diff stroke widths... use vectors for extra precision.
+
+COMPLETED:
+- After load, just top layer should be visible by default.
+- MOVE_BY should allow increments much smaller than 1.0.
+- Allow clicking on image pane to move the display position of images.
+*/
+
 import controlP5.*;
 import java.awt.*;
 import java.io.*;
@@ -26,6 +47,10 @@ int lastMoveTime;
 PVector prevMousePos;
 MixTool  mixer;
 GridTool grid;
+
+int M_PRESS   = 0;
+int M_DRAG    = 1;
+int M_RELEASE = 2;
 
 void setup() {
   size(1024,768);
@@ -79,8 +104,16 @@ void draw() {
 }
 
 void mousePressed() {
-  if(tMode == MODE_MIX)       {mixer.handleMouse();}
-  else if(tMode == MODE_GEN)  {grid.handleMouse();}
+  if(tMode == MODE_MIX)       {mixer.handleMouse(M_PRESS);}
+  else if(tMode == MODE_GEN)  {grid.handleMouse(M_PRESS);}
+}
+void mouseDragged() {
+  if(tMode == MODE_MIX)       {mixer.handleMouse(M_DRAG);}
+  else if(tMode == MODE_GEN)  {grid.handleMouse(M_DRAG);}
+}
+void mouseReleased() {
+  if(tMode == MODE_MIX)       {mixer.handleMouse(M_RELEASE);}
+  else if(tMode == MODE_GEN)  {grid.handleMouse(M_RELEASE);}
 }
 
 void controlEvent(ControlEvent theEvent) {

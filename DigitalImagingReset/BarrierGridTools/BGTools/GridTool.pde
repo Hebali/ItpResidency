@@ -71,7 +71,7 @@ public class GridTool {
     }
   }
   
-  public boolean handleMouse() {
+  public boolean handleMouse(int Type) {
     return false;
   }
   

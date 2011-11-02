@@ -10,7 +10,7 @@ class LayerMan {
     
     layers = new ArrayList();
     for(int i = 0; i < count; i++) {
-      layers.add(new LayerSel(Integer.toString(i), sx, sy+i*40, cGroup));
+      layers.add(new LayerSel(Integer.toString(i), sx, sy+i*40, (i == count-1), cGroup));
     }
   }
 

@@ -1,22 +1,27 @@
 class LayerSel {
   Toggle             selectButton,visibleButton;
-  boolean            isSel,isVis;
+  boolean            isSel,isVis,isCalib;
   String             name;
   
-  LayerSel(String Name, int X, int Y, ControlGroup cGroup) {
+  LayerSel(String Name, int X, int Y, boolean isLast, ControlGroup cGroup) {
     name          = Name;
     isSel         = false;
-    isVis         = true;
-    cP5.addToggle((name+"_selection"), isSel,X,   Y,80,15).setGroup(cGroup);
-    cP5.addToggle((name+"_visibility"),isVis,X+82,Y,18,15).setGroup(cGroup);
+    isVis         = isLast;
+    isCalib       = isLast;
+    cP5.addToggle((name+"_select"),    isSel,  X,    Y,48,15).setGroup(cGroup);
+    cP5.addToggle((name+"_visible"),   isVis,  X+50, Y,48,15).setGroup(cGroup);
+    cP5.addToggle((name+"_calibrate"), isCalib,X+100,Y,48,15).setGroup(cGroup);
   }
   
   void handleLayer(String LName) {
-    if(LName.equals(name+"_selection")) {
+    if(LName.equals(name+"_select")) {
       isSel=!isSel;
     }
-    else if(LName.equals(name+"_visibility")) {
+    else if(LName.equals(name+"_visible")) {
       isVis=!isVis;
+    }
+    else if(LName.equals(name+"_calibrate")) {
+      isCalib=!isCalib;
     }
   }
   

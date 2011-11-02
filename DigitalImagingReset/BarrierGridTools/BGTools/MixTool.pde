@@ -1,28 +1,27 @@
 public class MixTool {
   ImgWrap[]      imgs;
   PImage         outputImg;
+
   ControlGroup   mixTools;
+  Numberbox      masterW_box,masterH_box,scale_box,moveBy_box;
+  LayerMan       layerMan;
   
   boolean        isLoaded        = false;
   boolean        genMode         = false;
   boolean        toolsAreVisible = true;
   
-  float          DISPLAY_SCALE   = 1.0;
+  int            dispTransX      = 0;
+  int            dispTransY      = 0;
+  int            prevMouseX      = 0;
+  int            prevMouseY      = 0;
   
+  // Default settings
+  float          DISPLAY_SCALE   = 1.0;
   int            SOURCE_WIDTH    = 500;
   int            SOURCE_HEIGHT   = 500;
-  
-  int            MOVE_BY         = 1;
-
-  PFont          font;
- 
-  Numberbox      masterW_box,masterH_box,scale_box,moveBy_box;
-  
-  LayerMan       layerMan;
+  float          MOVE_BY         = 1.0;
   
   public MixTool() {
-    font     = createFont("Georgia", 12);
-    
     mixTools = cP5.addGroup("mixTools",120,0);
     mixTools.hideBar();
     cP5.addButton("generate",0,0,0,75,15).setGroup(mixTools);
@@ -48,7 +47,7 @@ public class MixTool {
     
     moveBy_box =  cP5.addNumberbox("MOVE_BY",MOVE_BY,550,0,90,14);
     moveBy_box.setGroup(mixTools);
-    moveBy_box.setMultiplier(1);
+    moveBy_box.setMultiplier(0.01);
     
     toggleUiVisibility(toolsAreVisible);
   }
@@ -57,6 +56,8 @@ public class MixTool {
   
   public void draw() {
     if(isLoaded) {
+      pushMatrix();
+      translate(dispTransX,dispTransY);
       if(genMode) {
         pushMatrix();
         if(scale_box.value() != 1.0)
@@ -77,6 +78,7 @@ public class MixTool {
           popMatrix();
         }
       }
+      popMatrix();
     }
     // Draw tool background 
     if(toolsAreVisible) {
@@ -85,7 +87,17 @@ public class MixTool {
     }
   }
   
-  public boolean handleMouse() {
+  public boolean handleMouse(int Type) {
+    if(Type == M_PRESS) {
+      prevMouseX = mouseX;
+      prevMouseY = mouseY;
+    }
+    else if(Type == M_DRAG) {
+      dispTransX += (mouseX-prevMouseX);
+      dispTransY += (mouseY-prevMouseY);
+      prevMouseX = mouseX;
+      prevMouseY = mouseY;
+    }
     return false;
   }
   
@@ -153,8 +165,8 @@ public class MixTool {
     else if(masterH_box.value() > 10000) {masterH_box.setValue(10000.0);}
     if(scale_box.value() < 0.001)        {scale_box.setValue(0.001);}
     else if(scale_box.value() > 2.5)     {scale_box.setValue(2.5);}
-    if(moveBy_box.value() < 1)           {moveBy_box.setValue(1);}
-    else if(moveBy_box.value() > 1000)   {moveBy_box.setValue(1000);}
+    if(moveBy_box.value() < 0.01)        {moveBy_box.setValue(0.01);}
+    else if(moveBy_box.value() > 100.0)  {moveBy_box.setValue(100.0);}
     return false;
   }
   
