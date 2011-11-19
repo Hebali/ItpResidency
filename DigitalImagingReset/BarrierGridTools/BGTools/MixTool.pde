@@ -6,20 +6,21 @@ public class MixTool {
   Numberbox      masterW_box,masterH_box,scale_box,moveBy_box;
   LayerMan       layerMan;
   
-  boolean        isLoaded        = false;
-  boolean        genMode         = false;
-  boolean        toolsAreVisible = true;
+  boolean        isLoaded           = false;
+  boolean        genMode            = false;
+  boolean        toolsAreVisible    = true;
+  boolean        calibrationIsBlack = true;
   
-  int            dispTransX      = 0;
-  int            dispTransY      = 0;
-  int            prevMouseX      = 0;
-  int            prevMouseY      = 0;
+  int            dispTransX         = 0;
+  int            dispTransY         = 0;
+  int            prevMouseX         = 0;
+  int            prevMouseY         = 0;
   
   // Default settings
-  float          DISPLAY_SCALE   = 1.0;
-  int            SOURCE_WIDTH    = 500;
-  int            SOURCE_HEIGHT   = 500;
-  float          MOVE_BY         = 1.0;
+  float          DISPLAY_SCALE      = 1.0;
+  int            SOURCE_WIDTH       = 500;
+  int            SOURCE_HEIGHT      = 500;
+  float          MOVE_BY            = 1.0;
   
   public MixTool() {
     mixTools = cP5.addGroup("mixTools",120,0);
@@ -32,6 +33,8 @@ public class MixTool {
     cP5.addButton("down", 0,700,22,30,20).setGroup(mixTools);
     cP5.addButton("left", 0,668,10,30,20).setGroup(mixTools);
     cP5.addButton("right",0,732,10,30,20).setGroup(mixTools);
+    
+    cP5.addButton("BLACK/WHITE CALIBRATION",0,780,10,112,20).setGroup(mixTools);
     
     masterW_box = cP5.addNumberbox("SOURCE_WIDTH",SOURCE_WIDTH,250,0,90,14);
     masterW_box.setGroup(mixTools);
@@ -67,14 +70,25 @@ public class MixTool {
         popMatrix();
       }
       else {
+        int CALIBRATION_BORDER = 50;
+        
         // Draw visible layers
         int[] visibleIndices = layerMan.getVisibleIndices();
         int viCount = visibleIndices.length;
+        
         for(int i = 0; i < viCount; i++) {
           pushMatrix();
           if(scale_box.value() != 1.0)
             scale(scale_box.value()); 
-          imgs[visibleIndices[i]].draw(128);
+          // Draw calibration boxes if necessary
+          if(layerMan.isCalibrationIndex(visibleIndices[i])) {
+             // Draw image
+            imgs[visibleIndices[i]].draw(128,(calibrationIsBlack)?(BL_CALIB):(WH_CALIB));
+          }
+          else {
+            // Draw image
+            imgs[visibleIndices[i]].draw(128,NO_CALIB);
+          }
           popMatrix();
         }
       }
@@ -152,6 +166,10 @@ public class MixTool {
       }
       genMode = false;
     }
+    else if(theEvent.name().equals("BLACK/WHITE CALIBRATION")){
+      calibrationIsBlack = !calibrationIsBlack;
+      genMode = false;
+    }
     else {
       // Pass to layerMan
       if(isLoaded) {
@@ -177,28 +195,20 @@ public class MixTool {
   }  
   
   public boolean loadImageFiles() {
-    String loadPath = selectFolder();
-    if (loadPath == null) {
-      println("No folder was selected.");
-    } 
-    else {
-      // Load files
-      println("Reading .jpg and .png files from " + loadPath);
-      java.io.File folder = new java.io.File(loadPath);
-      java.io.FilenameFilter imgFilter = new java.io.FilenameFilter() {
-        public boolean accept(File dir, String name) {
-          return (name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png"));
-        }
-      };
-      // Get loaded files
-      String[] filenames = folder.list(imgFilter);
-      // Prepare images
-      int imgCount = filenames.length;
+    JFileChooser chooser = new JFileChooser();
+    chooser.setMultiSelectionEnabled(true);
+    chooser.setFileFilter(chooser.getAcceptAllFileFilter());
+    int returnVal = chooser.showOpenDialog(null);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+      File[] files = chooser.getSelectedFiles();
+      int imgCount = files.length;
       imgs = new ImgWrap[imgCount];
-      // Load images
-      for (int i = 0; i < imgCount; i++) {
-        imgs[i] = new ImgWrap(loadImage(loadPath+"/"+filenames[i]));
+      for(int fi = 0; fi < imgCount; fi++) {
+        if(files[fi].getName().toLowerCase().endsWith(".jpg") || files[fi].getName().toLowerCase().endsWith(".png")) {
+          imgs[fi] = new ImgWrap(loadImage(files[fi].getAbsolutePath()));
+        }
       }
+      
       // Check if images have same dimensions
       if(imgCount > 1) {
         masterW_box.setValue(imgs[0].img.width);
@@ -209,42 +219,110 @@ public class MixTool {
             isLoaded = false;
           }
         }
-      }      
-    }
-    
-    if(isLoaded) {
-      layerMan = new LayerMan(imgs.length, width-300, 100, mixTools);
+      }
+  
+      if(isLoaded) {
+        layerMan = new LayerMan(imgs.length, width-300, 100, mixTools);
+      }
     }
     
     return isLoaded;
   }
   
-  public void generateImage() {
+  public void generateImage() {   
     if(isLoaded) {
       // Load pixels
       int imgCount = imgs.length;
       for (int i = 0; i < imgCount; i++) {
         imgs[i].img.loadPixels();
       }
-      // Interlace images
-      outputImg = createImage((int)masterW_box.value(),(int)masterH_box.value(), RGB);
-      for (int x = 0; x < (int)masterW_box.value(); x++) {
-        int s = x % imgCount;
-        for (int y = 0; y < (int)masterH_box.value(); y++) {
-          int transX = (int)((x-imgs[s].tx)/imgs[s].zoom);
-          int transY = (int)((y-imgs[s].ty)/imgs[s].zoom);
-          if(inBounds(transX,transY)) {
-            // Copy input pixel to output
-            outputImg.pixels[y*(int)masterW_box.value() + x] = imgs[s].img.pixels[transY*(int)masterW_box.value()+transX];
-          }
-          else {
-            // Input pixel is out of bounds, output black
-            outputImg.pixels[y*(int)masterW_box.value() + x] = color(0,0,0);
-          }
+      
+      //float wRatio = (float)masterW_box.value()/lcdW_box.value();
+      float wRatio = 640/12.0;
+      //float hRatio = (float)masterH_box.value()/lcdH_box.value();
+      float hRatio = 480/10.0;
+      float pixelsPerInch = wRatio;
+      //float lineWidth     = pixelsPerInch/lpi_box.value();
+      float lineWidth = pixelsPerInch/16.0;
+      
+      int SUBSAMPLE_DEPTH = (int)(lineWidth/(float)imgCount);
+
+      
+      // Each line should represent each src image. So if a line is 10px wide and we have 10 src images, 
+// each src would have 1 pixel along the horizontal of a line
+
+      int outputW = (int)masterW_box.value();
+      int outputH = (int)masterH_box.value();
+      outputImg = createImage(outputW*SUBSAMPLE_DEPTH,outputH,ARGB);
+      
+      for(int x = 0; x < outputW; x++) {
+        int currImgSrcInd = x % imgCount;
+        
+        for(int y = 0; y < outputH; y++) {
         }
       }
-      // Update pixels
+      
+      
+      
+      for(int x = 0; x < outputW; x++) {
+          int s = x % imgCount;
+          
+          for(int y = 0; y < outputH; y++) {
+            int transX = (int)((x-imgs[s].tx)/imgs[s].zoom);
+            int transY = (int)((y-imgs[s].ty)/imgs[s].zoom);
+            int inInd  = transY*outputW+transX;
+            if(inBounds(transX,transY)) { 
+              for(int subs = 0; subs < subsampPixelsPerSrcLine; subs++) {
+                int outInd = y*SUBSAMPLE_DEPTH*outputW + x * subs;
+                if(layerMan.isCalibrationIndex(s)) {
+                   if(calibrationIsBlack)
+                     outputImg.pixels[outInd] = imgs[s].imgCalibBlack.pixels[inInd];
+                   else
+                     outputImg.pixels[outInd] = imgs[s].imgCalibWhite.pixels[inInd];
+                }
+                else {
+                  outputImg.pixels[outInd] = imgs[s].img.pixels[inInd];
+                }
+              } 
+            }
+//            else {
+//              // Input pixel is out of bounds, output black
+//              outputImg.pixels[outInd] = color(0,0,0);
+//            }
+          }
+      }
       outputImg.updatePixels();
+      //outputImg.resize(outputW,outputH);
+      
+      
+//      
+//      // Interlace images
+//      outputImg = createImage((int)masterW_box.value(),(int)masterH_box.value(), RGB);
+//      for (int x = 0; x < (int)masterW_box.value(); x++) {
+//        int s = x % imgCount;
+//        for (int y = 0; y < (int)masterH_box.value(); y++) {
+//          int transX = (int)((x-imgs[s].tx)/imgs[s].zoom);
+//          int transY = (int)((y-imgs[s].ty)/imgs[s].zoom);
+//          int outInd = y*(int)masterW_box.value() + x;
+//          if(inBounds(transX,transY)) {      
+//            if(layerMan.isCalibrationIndex(s)) {
+//               if(calibrationIsBlack)
+//                 outputImg.pixels[outInd] = imgs[s].imgCalibBlack.pixels[transY*(int)masterW_box.value()+transX];
+//               else
+//                 outputImg.pixels[outInd] = imgs[s].imgCalibWhite.pixels[transY*(int)masterW_box.value()+transX];
+//            }
+//            else {
+//              outputImg.pixels[outInd] = imgs[s].img.pixels[transY*(int)masterW_box.value()+transX];
+//            }
+//          }
+//          else {
+//            // Input pixel is out of bounds, output black
+//            outputImg.pixels[outInd] = color(0,0,0);
+//          }
+//        }
+//      }
+//      // Update pixels
+//      outputImg.updatePixels();
     }
   }
   

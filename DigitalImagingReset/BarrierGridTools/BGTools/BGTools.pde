@@ -9,28 +9,30 @@
 
 // NOTES:
 /*
-Open dialog selects folders but files are ghosted... fix highlighting.
-
-Add a calibration layer (which can be derived from any of the image layers, selectable by user) that adds a white border around that image...
-This allows user to calibrate the alignment with pure white rather than trying to align using image content. When the image is calibrated the border will be pure white for one eye and black for the other.
 
 Subsample depth 1 to 16 levels...
 subpixel definition... clone orig layer, copy each column # of subsample times, then squish back down...
 Also need to define the export resolution as this is instrumental to figuring out the degree of squishing...
 
-Each column (which is a pair of white and black) should represent each src image. So if a col is 10px wide and we have 10 src images, each src would have 1 pixel along the horizontal of a col
+Each column (which is a pair of white and black) should represent each src image. So if a col is 10px wide and we have 10 src images, 
+each src would have 1 pixel along the horizontal of a col
 
-For the grid generator... rather than composing with pixels, use lines with diff stroke widths... use vectors for extra precision.
+???? For the grid generator... rather than composing with pixels, use lines with diff stroke widths... use vectors for extra precision. ????
 
 COMPLETED:
+- Open dialog selects folders but files are ghosted... fix highlighting.
 - After load, just top layer should be visible by default.
 - MOVE_BY should allow increments much smaller than 1.0.
 - Allow clicking on image pane to move the display position of images.
+- Add a calibration layer (which can be derived from any of the image layers, selectable by user) that adds a white border around that image...
+This allows user to calibrate the alignment with pure white rather than trying to align using image content. When the image is calibrated the border will be pure white for one eye and black for the other.
+
 */
 
 import controlP5.*;
 import java.awt.*;
 import java.io.*;
+import javax.swing.JFileChooser;
 
 // Global Constants
 int MODE_MIX = 0;

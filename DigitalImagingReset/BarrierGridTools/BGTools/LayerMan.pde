@@ -13,6 +13,14 @@ class LayerMan {
       layers.add(new LayerSel(Integer.toString(i), sx, sy+i*40, (i == count-1), cGroup));
     }
   }
+  
+  boolean isCalibrationIndex(int index) {
+    if(layers.size() > index) {
+      LayerSel currLayer = (LayerSel)layers.get(index);
+      return currLayer.isCalib;
+    }
+    return false;
+  }
 
   int[] getSelectedIndices() {
     int selInds = 0;
