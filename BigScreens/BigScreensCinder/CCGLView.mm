@@ -535,7 +535,7 @@ ResourceLoadExc::ResourceLoadExc( const string &macPath )
 	if( resourcePath.empty() )
 		throw ResourceLoadExc( macPath );
 	else
-		return DataSourcePath::createRef( resourcePath );
+		return DataSourcePath::create( resourcePath );
 }
 
 - (string) getResourcePath:(string) rsrcRelativePath
