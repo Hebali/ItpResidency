@@ -3,14 +3,14 @@ class LayerMan {
   int       count;
   int       sx,sy;
 
-  LayerMan(int Count,int SX,int SY, ControlGroup cGroup) {
-    count   = Count;
+  LayerMan(String[] names, int SX,int SY, ControlGroup cGroup) {
+    count   = names.length;
     sx      = SX;
     sy      = SY;
     
     layers = new ArrayList();
     for(int i = 0; i < count; i++) {
-      layers.add(new LayerSel(Integer.toString(i), sx, sy+i*40, (i == count-1), cGroup));
+      layers.add(new LayerSel(names[i],i, sx, sy+i*40, (i == count-1), cGroup));
     }
   }
   
@@ -63,6 +63,8 @@ class LayerMan {
       currLayer.handleLayer(LName);
     }
   }
+  
+ 
   
 }
   

@@ -32,15 +32,15 @@ public class GridTool {
     masterH_box.setGroup(gridTools);
     masterH_box.setMultiplier(1);
     
-    lcdW_box = cP5.addNumberbox("LCD_WIDTH",LCD_WIDTH,300,0,90,14);
+    lcdW_box = cP5.addNumberbox("GRID_LCD_WIDTH",LCD_WIDTH,300,0,90,14);
     lcdW_box.setGroup(gridTools);
     lcdW_box.setMultiplier(1);
     
-    lcdH_box = cP5.addNumberbox("LCD_HEIGHT",LCD_HEIGHT,400,0,90,14);
+    lcdH_box = cP5.addNumberbox("GRID_LCD_HEIGHT",LCD_HEIGHT,400,0,90,14);
     lcdH_box.setGroup(gridTools);
     lcdH_box.setMultiplier(1);
         
-    lpi_box = cP5.addNumberbox("LPI",LPI,500,0,90,14);
+    lpi_box = cP5.addNumberbox("GRID_LPI",LPI,500,0,90,14);
     lpi_box.setGroup(gridTools);
     lpi_box.setMultiplier(0.1);
     
