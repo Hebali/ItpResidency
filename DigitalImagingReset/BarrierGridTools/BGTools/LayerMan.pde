@@ -63,9 +63,7 @@ class LayerMan {
       currLayer.handleLayer(LName);
     }
   }
-  
- 
-  
+
 }
   
   

@@ -16,7 +16,7 @@ class ImgWrap {
     ty   = 0;
     zoom = 1.0;
     
-    int CALIB_BORDER = 50;
+    int CALIB_BORDER = 25;
     
     img.loadPixels();
     imgCalibBlack = createImage(img.width,img.height, RGB);

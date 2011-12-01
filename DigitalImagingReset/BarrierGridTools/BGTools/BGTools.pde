@@ -1,4 +1,4 @@
-///////////////////////////////////////
+ ///////////////////////////////////////
 // BARRIER GRID TOOLS FOR PROCESSING //
 //                 BY                //
 //  ERIC ROSENTHAL & PATRICK HEBRON  //
@@ -10,8 +10,11 @@
 // NOTES:
 /*
 TODO:
-Each column (which is a pair of white and black) should represent each src image. So if a col is 10px wide and we have 10 src images, 
-each src would have 1 pixel along the horizontal of a col
+
+-Export with display scale baked in?
+-Fullscreen?
+-Layer reordering
+
 
 COMPLETED:
 - Open dialog selects folders but files are ghosted... fix highlighting.
@@ -21,6 +24,9 @@ COMPLETED:
 - Allow clicking on image pane to move the display position of images.
 - Add a calibration layer (which can be derived from any of the image layers, selectable by user) that adds a white border around that image...
 This allows user to calibrate the alignment with pure white rather than trying to align using image content. When the image is calibrated the border will be pure white for one eye and black for the other.
+-Micro adjustments on keyboard.
+-Each column (which is a pair of white and black) should represent each src image. So if a col is 10px wide and we have 10 src images, 
+each src would have 1 pixel along the horizontal of a col. DONE??
 
 */
 
@@ -50,7 +56,7 @@ int M_DRAG    = 1;
 int M_RELEASE = 2;
 
 void setup() {
-  size(1024,768);
+  size(screenWidth,screenHeight);
     
   // Initialize cP5 UI
   cP5 = new ControlP5(this);
@@ -111,6 +117,21 @@ void mouseDragged() {
 void mouseReleased() {
   if(tMode == MODE_MIX)       {mixer.handleMouse(M_RELEASE);}
   else if(tMode == MODE_GEN)  {grid.handleMouse(M_RELEASE);}
+}
+
+void keyPressed() {
+  int kv = -1;
+  if (key == CODED) {
+    if (keyCode == UP)               {kv=0;} 
+    else if (keyCode == DOWN)        {kv=1;} 
+    else if (keyCode == LEFT)        {kv=2;}  
+    else if (keyCode == RIGHT)       {kv=3;}
+  }
+  else if (key == '+' || key == '=') {kv=4;}
+  else if (key == '-')               {kv=5;}
+  else if (key == ',')               {kv=6;}
+  else if (key == '.')               {kv=7;}
+  if(tMode == MODE_MIX) {mixer.handleKey(kv);}
 }
 
 void controlEvent(ControlEvent theEvent) {

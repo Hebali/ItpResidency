@@ -212,6 +212,33 @@ public class MixTool {
     return false;
   }
   
+  public void handleKey(int K) {
+    if     (K == 0) { //up
+      dispTransY -= 1;
+    } 
+    else if(K == 1) { //down
+      dispTransY += 1;
+    } 
+    else if(K == 2) { //left
+      dispTransX -= 1;
+    } 
+    else if(K == 3) { //right
+      dispTransX += 1;
+    } 
+    else if(K == 4) { //zoom+.0001
+      scale_box.setValue(scale_box.value()+0.0001);
+    } 
+    else if(K == 5) { //zoom-.0001
+      scale_box.setValue(scale_box.value()-0.0001);
+    } 
+    else if(K == 6) { //zoom-.00001
+      scale_box.setValue(scale_box.value()-0.00001);
+    } 
+    else if(K == 7) { //zoom+.00001
+      scale_box.setValue(scale_box.value()+0.00001);
+    } 
+  }
+  
   public void toggleUiVisibility(boolean Show) {
     if(Show)  {mixTools.show();}
     else      {mixTools.hide();}
@@ -286,9 +313,12 @@ public class MixTool {
         
         int imgLongW = outputW*SUBSAMPLE_DEPTH; 
         outputImg = createImage(imgLongW,outputH,ARGB);
+        
+        int theMod = imgCount;
+        if((int)pixelsPerLine < imgCount && pixelsPerLine > 0) {theMod = (int)pixelsPerLine;}
                 
         for(int x = 0; x < outputW; x++) {
-          int cx = x % imgCount;
+          int cx = x % theMod;//imgCount;
           
           for(int ss = 0; ss < SUBSAMPLE_DEPTH; ss++) {
             for(int y = 0; y < outputH; y++) {
