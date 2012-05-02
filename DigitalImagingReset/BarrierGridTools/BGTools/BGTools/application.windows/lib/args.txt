@@ -1,0 +1,3 @@
+ -Xms64m -Xmx2048m
+BGTools
+BGTools.jar,core.jar,controlP5.jar

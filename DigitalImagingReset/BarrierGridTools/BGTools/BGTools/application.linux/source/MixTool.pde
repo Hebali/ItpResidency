@@ -24,7 +24,7 @@ public class MixTool {
   int            SOURCE_WIDTH       = 500;
   int            SOURCE_HEIGHT      = 500;
   float          MOVE_BY            = 1.0;
-  float          LPI                = 16.5;
+  float          LPI                = 10.0;
   float          LCD_WIDTH          = 14.0;
   
   public MixTool() {
